@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_182937) do
+ActiveRecord::Schema.define(version: 2020_11_26_183105) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 2020_11_26_182937) do
     t.index ["title"], name: "index_books_on_title", unique: true
   end
 
+  create_table "loans", force: :cascade do |t|
+    t.boolean "is_active"
+    t.integer "user_id", null: false
+    t.integer "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_loans_on_book_id"
+    t.index ["user_id"], name: "index_loans_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -43,4 +53,6 @@ ActiveRecord::Schema.define(version: 2020_11_26_182937) do
   end
 
   add_foreign_key "books", "authors"
+  add_foreign_key "loans", "books"
+  add_foreign_key "loans", "users"
 end
