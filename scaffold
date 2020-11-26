@@ -1,0 +1,5 @@
+
+rails g scaffold author name:string:uniq
+rails g scaffold book title:string:uniq quantity:integer author:references
+rails g scaffold loan is_active:boolean user:references book:references
+
