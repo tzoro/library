@@ -3,7 +3,7 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    @books = Book.all
+    @books = params[:search] ? Book.search(params[:search]) : Book.all
 
     render json: @books
   end

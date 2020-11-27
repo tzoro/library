@@ -3,7 +3,7 @@ class AuthorsController < ApplicationController
 
   # GET /authors
   def index
-    @authors = Author.all
+    @authors = params[:search] ? Author.search(params[:search]) : Author.all
 
     render json: @authors
   end
