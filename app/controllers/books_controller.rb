@@ -39,6 +39,16 @@ class BooksController < ApplicationController
     @book.destroy
   end
 
+  # GET /books/out_of_stock
+  def out_of_stock
+    render json: Book
+          .select("books.*, COUNT(loans.id) as active_loan_count")
+          .joins(:loans)
+          .merge(Loan.active)
+          .group('books.id')
+          .having('active_loan_count >= books.quantity')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/books/outofstock', to: 'books#out_of_stock'
   resources :loans
   resources :books
   resources :authors
