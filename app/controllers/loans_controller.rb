@@ -1,11 +1,10 @@
 class LoansController < ApplicationController
   before_action :set_loan, only: [:show, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /loans
   def index
-    @loans = Loan.all
-
-    render json: @loans
+    render json: @loans.order(created_at: :asc)
   end
 
   # GET /loans/1
@@ -15,8 +14,6 @@ class LoansController < ApplicationController
 
   # POST /loans
   def create
-    @loan = Loan.new(loan_params)
-
     if @loan.save
       render json: @loan, status: :created, location: @loan
     else

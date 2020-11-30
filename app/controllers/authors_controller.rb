@@ -1,5 +1,8 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_user!, :only => PUBLIC_ACTIONS
+  skip_authorization_check :only => PUBLIC_ACTIONS
+  load_and_authorize_resource
 
   # GET /authors
   def index
